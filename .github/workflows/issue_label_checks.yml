@@ -25,7 +25,7 @@ jobs:
         with:
           script: |
             // this gets the number at the end of the content URL, which should be the issue/PR number
-            const issue_labels = context.payload.issues.labels
+            const issue_labels = context.payload.issue.labels
             github.rest.issues.addLabel({
               issue_number: context.issue.number,
               owner: context.repo.owner,
