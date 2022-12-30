@@ -24,11 +24,22 @@ jobs:
       - uses: actions/github-script@v6
         with:
           script: |
-            // this gets the number at the end of the content URL, which should be the issue/PR number
-            let issue_labels = context.payload.issue.labels.map(label => label.name);
-            github.rest.issues.addLabels({
-              issue_number: context.issue.number,
-              owner: context.repo.owner,
-              repo: context.repo.repo,
-              labels: ["component: GUI"]
-            })
+            let labels = context.payload.issue.labels.map(label => label.name)
+            let state = labels.filter(l => l.startsWith("state:"))
+            let priority = labels.filter(l => l.startsWith("priority:"))
+            let other = labels.filter(l => !state.includes(l) && !priority.includes(l))
+
+            // ensure there is at most one state and at most one priority label
+            state = state.slice(0,1)
+            priority = priority.slice(0,1)
+
+            let final = other.concat(state).concat(priority)
+            
+            if (!labels.every(l => final.includes(l))) {
+              github.rest.issues.setLabels({
+                issue_number: context.issue.number,
+                owner: context.repo.owner,
+                repo: context.repo.repo,
+                labels: final
+              })
+            }
