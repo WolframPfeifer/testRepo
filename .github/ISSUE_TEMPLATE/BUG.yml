@@ -1,0 +1,64 @@
+name: Bug Report
+description: File a bug report
+title: "[Bug]: "
+labels: ["type: :lady_beetle: bug"]
+assignees:
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Thanks for taking the time to fill out this bug report!
+  - type: textarea
+    id: what-happened
+    attributes:
+      label: Bug description
+      description: Also tell us, what did you expect to happen?
+      placeholder: Tell us what you see!
+      value: "A bug happened!"
+    validations:
+      required: true
+  - type: textarea
+    id: reproduce
+    label: Steps to reproduce
+    value: |
+      1. ...
+      2. ...
+      3. ...
+  - type: input
+    id: version
+    attributes:
+      label: Version
+      description: Please provide the version of KeY where the bug happened (commit hash or release number).
+    validations:
+      required: true
+  - type: dropdown
+    id: os
+    attributes: Please select the operating system you are using.
+      label:
+      options: 
+        - Linux
+        - Windows
+        - MacOS
+        - Other
+  - type: input
+    id: java
+    attributes:
+      label: Java version
+      description: Which version of Java did you run KeY with when the bug occurred?
+      placeholder: e.g. Java 17
+  - type: textarea
+    id: stacktrace
+    attributes:
+      label: Stacktrace
+      description: If there was a Java Exception, please provide the stacktrace here. This will be automatically formatted into code, so no need for backticks.
+      render: shell
+  - type: textarea
+    attributes:
+    label: Anything else?
+    description: |
+      Links? References? Anything that will give us more context about the issue you are encountering!
+
+      Tip: You can attach images or log files by clicking this area to highlight it and then dragging files in.
+  validations:
+    required: false
+ 
